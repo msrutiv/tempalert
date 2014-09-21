@@ -21,7 +21,7 @@ while True:
               from_="+15303874678",
               body="ALERT: Your car's temperature is %.2f. Come back quickly!" % float(point),
             )
-            time.sleep(30)
+            time.sleep(30) 
 
 
     except:
