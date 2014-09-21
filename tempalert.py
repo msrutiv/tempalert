@@ -14,16 +14,50 @@ p = subprocess.Popen(["tail", "-f", "/home/root/tempdata.txt"], stdout=subproces
 while True:
     point = p.stdout.readline()
     try:
-        if (float(point) > 70):
-            print point
-	    client.messages.create(
-              to="916-220-6131",
-              from_="+15303874678",
-              body="ALERT: Your car's temperature is %.2f. Come back quickly!" % float(point),
+        temp = float(point)
+        if  (temp > 78):
+            i=0
+            print temp
+            call = client.calls.create(    
+            to="19162206131",              
+            from_="+15303874678",          
+            url="http://demo.twilio.com/docs/voice.xml",
+            method="GET",                               
+            fallback_method="GET",                      
+            status_callback_method="GET",               
+            record="false"                              
+            )                                           
+            print call.sid 
+            while(i < 15):
+                point = p.stdout.readline()
+                time.sleep(1)
+                i+=1 
+
+        elif (temp > 74):
+            print temp 
+            i=0 
+            client.messages.create(                                                
+            to="916-220-6131",                                                   
+            from_="+15303874678",                                                
+            body="URGENT: Your car's temperature is %.2f. Come back NOW!" % temp,
             )
-            time.sleep(30) 
+            while(i < 30):                                                      
+                point = p.stdout.readline()                                     
+                time.sleep(1)                                                   
+                i+=1
 
-
+        elif (temp > 70):
+            print temp
+            i=0
+	    client.messages.create(
+            to="916-220-6131",
+            from_="+15303874678",
+            body="ALERT: Your car's temperature is %.2f. Come back quickly!" % temp,
+            )
+            while(i < 40):                                                      
+                point = p.stdout.readline()                                     
+                time.sleep(1)                                                   
+                i+=1   
     except:
         pass
 data.close()

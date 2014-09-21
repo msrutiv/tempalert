@@ -27,6 +27,6 @@ void loop()
 //fprintf(data, "Fahrenheit");
     fprintf(data, "%f\n", tempF);
     
-    delay(1000);          // delay 1s        
+    delay(3000);          // delay 1s        
     fclose(data);
 }
